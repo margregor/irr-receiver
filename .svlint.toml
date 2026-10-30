@@ -1,0 +1,25 @@
+[option]
+exclude_paths = [
+    "build/**",
+    "impl/**",
+]
+textwidth = 120
+indent = 4
+
+[textrules]
+style_directives = true
+style_semicolon = true
+style_textwidth = true
+
+[syntaxrules]
+blocking_assignment_in_always_ff = true
+case_default = true
+default_nettype_none = true
+enum_with_type = true
+eventlist_or = true
+function_same_as_system_function = true
+function_with_automatic = true
+inout_with_tri = true
+input_with_var = true
+keyword_forbidden_always = true
+localparam_explicit_type = true

@@ -1,0 +1,4 @@
+#include "resource.h"
+
+// source https://openclipart.org/detail/239995/ir-symbol-logo
+IDI_APP_ICON ICON "IR_symbol_paths.ico"

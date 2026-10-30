@@ -1,0 +1,21 @@
+// ============================================================================
+// Tang Nano 20K Constraints Map
+// ============================================================================
+
+// 27 MHz board clock
+IO_LOC "Clock" 10;
+IO_PORT "Clock" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// Existing on-board LED
+IO_LOC "IO_voltage" 15;
+IO_PORT "IO_voltage" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// Tevion DSS 2100 receiver: jack breakout ring
+IO_LOC "ir_receiver" 31;
+IO_PORT "ir_receiver" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// COM6 USB-UART connection (cross TX/RX and share GND with the board)
+IO_LOC "uart_rx" 70;
+IO_PORT "uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "uart_tx" 69;
+IO_PORT "uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
