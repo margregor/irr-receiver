@@ -70,6 +70,11 @@ always @(posedge Clock) begin
                     nec_state <= WAIT_BIT_MARK;
                     nec_bit_index <= 6'd0;
                     nec_shift <= 32'd0;
+                end else if (!ir_sync && (interval_us >= 16'd1800) &&
+                             (interval_us <= 16'd2800)) begin
+                    // Treat a repeat packet as a repeat of the last valid frame.
+                    nec_pending <= 1'b1;
+                    nec_state <= WAIT_HEADER_MARK;
                 end else begin
                     nec_state <= WAIT_HEADER_MARK;
                 end
@@ -204,7 +209,7 @@ always @(posedge Clock) begin
             uart_tx_reg <= 1'b1;
             bit_index <= 4'd9;
         end else if ((sending_nec && (char_index == 5'd13)) ||
-                     (!sending_nec && (char_index == 5'd9))) begin
+                      (!sending_nec && (char_index == 5'd9))) begin
             uart_active <= 1'b0;
             uart_tx_reg <= 1'b1;
         end else begin
