@@ -1,4 +1,4 @@
-set proj_name spu
+set proj_name irreceiver
 set proj_dir  [pwd]
 
 create_project -name $proj_name -dir $proj_dir/build \
