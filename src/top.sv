@@ -8,9 +8,9 @@ module irr_top(
     output wire IO_voltage
 );
 
-localparam integer CLOCK_HZ       = 27_000_000;
-localparam integer BAUD_RATE      = 115_200;
-localparam integer CLOCKS_PER_BIT = CLOCK_HZ / BAUD_RATE;
+localparam integer unsigned CLOCK_HZ       = 27_000_000;
+localparam integer unsigned BAUD_RATE      = 115_200;
+localparam integer unsigned CLOCKS_PER_BIT = CLOCK_HZ / BAUD_RATE;
 
 localparam [1:0] WAIT_HEADER_MARK  = 2'd0;
 localparam [1:0] WAIT_HEADER_SPACE = 2'd1;
@@ -118,6 +118,10 @@ always @(posedge Clock) begin
                     nec_state <= WAIT_HEADER_MARK;
                 end
             end
+            default: begin
+                // unreachable, but reset to a known state if it happens
+                nec_state <= WAIT_HEADER_MARK;
+            end
         endcase
     end else if (us_tick && (interval_us != 16'hffff)) begin
         interval_us <= interval_us + 1'b1;
@@ -136,7 +140,7 @@ wire [7:0] active_output_byte;
 
 function automatic [7:0] hex_digit(input [3:0] value);
     begin
-        hex_digit = (value < 10) ? ("0" + value) : ("A" + value - 10);
+        hex_digit = (value < 10) ? ("0" + 8'(value)) : ("A" + 8'(value) - 10);
     end
 endfunction
 
@@ -226,6 +230,7 @@ assign uart_tx = uart_tx_reg;
 assign IO_voltage = ir_sync;
 
 // uart_rx is constrained for the COM6 adapter but unused in this receive demo.
+(* unused *)
 wire unused_uart_rx = uart_rx;
 
 endmodule
