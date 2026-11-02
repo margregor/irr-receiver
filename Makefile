@@ -4,7 +4,7 @@ GW_SH       := $(GOWIN_IDE)/bin/gw_sh
 BITSTREAM   := build/irreceiver/impl/pnr/irreceiver.fs
 DEVICE      := GW2AR-18C
 
-SOURCES := src/top.sdc src/constraints/top.cst src/top.sv
+SOURCES := src/top.sdc src/constraints/top.cst src/top.sv scripts/build.tcl
 
 .PHONY: all timing flash-sram flash scan
 
@@ -13,7 +13,7 @@ all: $(BITSTREAM) timing
 $(BITSTREAM): $(SOURCES)
 	$(GW_SH) scripts/build.tcl
 
-timing: $(BITSTREAM)
+timing: $(BITSTREAM) scripts/check_timing.py
 	python scripts/check_timing.py build/irreceiver/impl/pnr/irreceiver_tr_content.html 27
 
 # Program SRAM only (volatile, fast — lost on power cycle)
